@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Homework3.Models.Student>
+@{
+    ViewData["Title"] = "Список студентов";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Университет</title>
+</head>
+<body>
+<h3>Студенты</h3>
+<table>
+    <tr>
+        <td>Имя</td>
+        <td>Возраст</td>
+        <td>Группа</td>
+        <td></td>
+    </tr>
+    @foreach (var student in Model)
+    {
+        <tr>
+            <td>@student.Name</td>
+            <td>@student.Age</td>
+            <td>@student.GroupName</td>
+            <td><a href="~/Home/EditStudent/@student.Id">Изменить информацию</a></td>
+            <td><a href="@Url.Action("Delete", "Home", new {id = student.Id} )">Удалить</a></td>
+        </tr>
+    }
+</table>
+<a href="~/Home/Create/">Cоздать студента</a>
+</body>
+</html>

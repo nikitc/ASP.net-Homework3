@@ -1,0 +1,34 @@
+﻿@model Student
+@{
+    ViewData["Title"] = "Список студентов";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Изменить информацию</title>
+</head>
+<body>
+<div>
+    <h3>Изменить информацию</h3>
+    <form method="post">
+        <input type="hidden" value="@Model.Id" name="Id"/>
+        <table>
+            <tr>
+                <td>Имя:</td>
+                <td><input type="text" value="@Model.Name" name="Name"/> </td>
+            </tr>
+            <tr>
+                <td>Возраст:</td>
+                <td><input type="text" value="@Model.Age" name="Age"/></td>
+            </tr>
+            <tr>
+                <td>Группа:</td>
+                <td><input type="text" value="@Model.GroupName" name="GroupName"/></td>
+            </tr>
+            <tr><td><input type="submit" value="Отправить"/> </td><td></td></tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>

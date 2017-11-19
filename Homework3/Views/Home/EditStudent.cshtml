@@ -1,7 +1,6 @@
 ﻿@model Student
 @{
     ViewData["Title"] = "Список студентов";
-    Layout = null;
 }
 <!DOCTYPE html>
 <html>
@@ -11,23 +10,26 @@
 <body>
 <div>
     <h3>Изменить информацию</h3>
-    <form method="post">
-        <input type="hidden" value="@Model.Id" name="Id"/>
-        <table>
-            <tr>
-                <td>Имя:</td>
-                <td><input type="text" value="@Model.Name" name="Name"/> </td>
-            </tr>
-            <tr>
-                <td>Возраст:</td>
-                <td><input type="text" value="@Model.Age" name="Age"/></td>
-            </tr>
-            <tr>
-                <td>Группа:</td>
-                <td><input type="text" value="@Model.GroupName" name="GroupName"/></td>
-            </tr>
-            <tr><td><input type="submit" value="Отправить"/> </td><td></td></tr>
-        </table>
+    <form asp-action="EditStudent" asp-controller="home" method="post">
+        <input type="hidden" value="@Model.Id" name="Id" />
+        <div class="form-group">
+            <label asp-for="Name" class="control-label">Имя</label>
+            <input type="text" asp-for="Name" class="form-control" value="@Model.Name"/>
+            <span asp-validation-for="Name"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Age" class="control-label">Возраст</label>
+            <input type="number" asp-for="Age" class="form-control" value="@Model.Age"/>
+            <span asp-validation-for="Age"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="GroupName" class="control-label">Группа</label>
+            <input asp-for="GroupName" class="form-control" value="@Model.GroupName"/>
+            <span asp-validation-for="GroupName"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Изменить информацию" class="btn btn-default"/>
+        </div>
     </form>
 </div>
 </body>

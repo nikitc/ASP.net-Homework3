@@ -25,6 +25,20 @@ namespace Homework3.Controllers
             return View(_db.Students.First(student => student.Id == id));
         }
 
+        [HttpGet]
+        public IActionResult Details(int? id)
+        {
+            if (id != null)
+            {
+                var student = _db.Students.FirstOrDefault(p => p.Id == id);
+                if (student != null)
+                {
+                    return View(student);
+                }
+            }
+            return NotFound();
+        }
+
         [HttpPost]
         public IActionResult EditStudent(Student student)
         {
@@ -36,36 +50,34 @@ namespace Homework3.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpPost]
+        [HttpGet]
         public IActionResult Create()
         {
-            return View("CreateStudent");
+            var student = new Student();
+            return View("EditStudent", student);
         }
 
         [HttpPost]
         public IActionResult Create(Student student)
         {
             if (!ModelState.IsValid)
-                return View("CreateStudent", student);
+                return View("EditStudent", student);
 
             _db.Students.Add(student);
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
-        
-        public ActionResult Delete(int? id)
+
+        [HttpGet]
+        public ActionResult Delete(int id)
         {
-            if (id != null)
-            {
-                var student = _db.Students.FirstOrDefault(p => p.Id == id);
-                if (student != null)
-                {
-                    _db.Students.Remove(student);
-                    _db.SaveChangesAsync();
-                    return RedirectToAction("Index");
-                }
-            }
-            return NotFound();
+            var student = _db.Students.FirstOrDefault(p => p.Id == id);
+            if (student == null)
+                return NotFound();
+
+            _db.Students.Remove(student);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }

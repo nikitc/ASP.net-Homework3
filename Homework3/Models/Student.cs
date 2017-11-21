@@ -1,21 +1,25 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Homework3.Models
 {
     public class Student : IValidatableObject
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         [Required (ErrorMessage = "Не указано имя")]
         [MaxLength(20)]
+        [Display(Name = "Имя")]
         public string Name { get; set; }
 
         [Required (ErrorMessage = "Не указан возраст")]
-        public int Age { get; set; }
+        [Display(Name = "Возраст")]
+        public int? Age { get; set; }
 
         [Required (ErrorMessage = "Не указана группа")]
         [MaxLength(20)]
+        [Display(Name = "Группа")]
         public string GroupName { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

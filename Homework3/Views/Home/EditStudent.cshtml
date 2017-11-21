@@ -1,36 +1,38 @@
 ﻿@model Student
 @{
-    ViewData["Title"] = "Список студентов";
+    var studentId = Model.Id;
+    ViewBag.Title = studentId == null ? "Добавление студента" : "Редактирование информации студента";
 }
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Изменить информацию</title>
+    <title>@ViewBag.Title</title>
 </head>
 <body>
-<div>
-    <h3>Изменить информацию</h3>
-    <form asp-action="EditStudent" asp-controller="home" method="post">
-        <input type="hidden" value="@Model.Id" name="Id" />
-        <div class="form-group">
-            <label asp-for="Name" class="control-label">Имя</label>
-            <input type="text" asp-for="Name" class="form-control" value="@Model.Name"/>
-            <span asp-validation-for="Name"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Age" class="control-label">Возраст</label>
-            <input type="number" asp-for="Age" class="form-control" value="@Model.Age"/>
-            <span asp-validation-for="Age"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="GroupName" class="control-label">Группа</label>
-            <input asp-for="GroupName" class="form-control" value="@Model.GroupName"/>
-            <span asp-validation-for="GroupName"></span>
-        </div>
-        <div class="form-group">
-            <input type="submit" value="Изменить информацию" class="btn btn-default"/>
-        </div>
-    </form>
-</div>
+    <div>
+        <h3>@ViewBag.Title</h3>
+        @using (Html.BeginForm("EditStudent", "Home", FormMethod.Post))
+        {
+            @Html.HiddenFor(m => m.Id, Model.Id)
+            <div class="form-group">
+                @Html.LabelFor(m => m.Name, new { @class = "control-label" })<br />
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Name)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Age, new { @class = "control-label" })<br />
+                @Html.TextBoxFor(m => m.Age, new { @class = "form-control", type = "number" })
+                @Html.ValidationMessageFor(m => m.Age)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.GroupName, new { @class = "control-label" })<br />
+                @Html.TextBoxFor(m => m.GroupName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.GroupName)
+            </div>
+            <div class="form-group">
+                <input type="submit" value="@(studentId == null ? "Создать" : "Изменить информацию")" class="btn btn-default" />
+            </div>
+        }
+    </div>
 </body>
 </html>

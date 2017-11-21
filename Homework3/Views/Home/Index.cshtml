@@ -1,7 +1,6 @@
 ﻿@model IEnumerable<Student>
 @{
     ViewData["Title"] = "Список студентов";
-    Layout = null;
 }
 <!DOCTYPE html>
 <html>
@@ -10,12 +9,12 @@
 </head>
 <body>
 <h3>Студенты</h3>
-<table>
+<table class="table">
     <tr>
-        <td>Имя</td>
-        <td>Возраст</td>
-        <td>Группа</td>
-        <td></td>
+        <th>Имя</th>
+        <th>Возраст</th>
+        <th>Группа</th>
+        <th>Действия</th>
     </tr>
     @foreach (var student in Model)
     {
@@ -23,11 +22,14 @@
             <td>@student.Name</td>
             <td>@student.Age</td>
             <td>@student.GroupName</td>
-            <td><a href="~/Home/EditStudent/@student.Id">Изменить информацию</a></td>
-            <td><a href="@Url.Action("Delete", "Home", new {id = student.Id} )">Удалить</a></td>
+            <td>
+                <a href="@Url.Action("Details", "Home", new {id = student.Id})">Просмотр</a><br>
+                <a href="@Url.Action("EditStudent", "Home", new {id = student.Id})">Редактировать</a><br>
+                <a href="@Url.Action("Delete", "Home", new {id = student.Id})">Удалить</a>
+            </td>
         </tr>
     }
 </table>
-<a href="~/Home/Create/">Cоздать студента</a>
+<a href="@Url.Action("Create", "Home")">Cоздать студента</a>
 </body>
 </html>

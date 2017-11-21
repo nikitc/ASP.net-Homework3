@@ -1,0 +1,25 @@
+﻿@model Student
+@{
+    ViewBag.Title = "Информация о студенте";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+<div>
+    <h3>@ViewBag.Title</h3>
+    <dl>
+        <dt>@Html.DisplayNameFor(m => m.Name):</dt>
+        <dd>@Model.Name</dd>
+
+        <dt>@Html.DisplayNameFor(m => m.Age):</dt>
+        <dd>@Model.Age</dd>
+
+        <dt>@Html.DisplayNameFor(m => m.GroupName):</dt>
+        <dd>@Model.GroupName</dd>
+    </dl>
+</div>
+</body>
+</html>

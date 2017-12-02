@@ -1,28 +1,33 @@
 ﻿using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Homework3.Models;
+using Homework3.Services;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Homework3.Controllers
 {
     public class HomeController : Controller
     {
-        readonly UniversityContext _db;
-        public HomeController(UniversityContext context)
+        private readonly IDataManager _dataManager;
+        public HomeController(IDataManager dataManager)
         {
-            _db = context;
+            _dataManager = dataManager;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            return View(_db.Students.ToList());
+            return View(_dataManager.StudentRepository.GetAllStudents().ToList());
         }
 
         [HttpGet]
         public IActionResult EditStudent(int id)
         {
-            return View(_db.Students.First(student => student.Id == id));
+            var service = (IDataManager)HttpContext
+                .RequestServices
+                .GetService(typeof(IDataManager));
+            var student = service.StudentRepository.GetById(id);
+            return View(student);
         }
 
         [HttpGet]
@@ -30,7 +35,7 @@ namespace Homework3.Controllers
         {
             if (id != null)
             {
-                var student = _db.Students.FirstOrDefault(p => p.Id == id);
+                var student = _dataManager.StudentRepository.GetById((int)id);
                 if (student != null)
                 {
                     return View(student);
@@ -40,13 +45,12 @@ namespace Homework3.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditStudent(Student student)
+        public IActionResult EditStudent([FromServices]IDataManager service, Student student)
         {
             if (!ModelState.IsValid)
                 return View("EditStudent", student);
 
-            _db.Students.Update(student);
-            _db.SaveChanges();
+            _dataManager.StudentRepository.UpdateStudent(student);
             return RedirectToAction("Index");
         }
 
@@ -60,23 +64,25 @@ namespace Homework3.Controllers
         [HttpPost]
         public IActionResult Create(Student student)
         {
+            var dataManager = ActivatorUtilities
+                .GetServiceOrCreateInstance<IDataManager>(HttpContext.RequestServices);
+
             if (!ModelState.IsValid)
                 return View("EditStudent", student);
 
-            _db.Students.Add(student);
-            _db.SaveChanges();
+
+            dataManager.StudentRepository.Create(student);
             return RedirectToAction("Index");
         }
 
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            var student = _db.Students.FirstOrDefault(p => p.Id == id);
+            var student = _dataManager.StudentRepository.GetById(id);
             if (student == null)
                 return NotFound();
 
-            _db.Students.Remove(student);
-            _db.SaveChanges();
+            _dataManager.StudentRepository.DeleteById(id);
             return RedirectToAction("Index");
         }
     }

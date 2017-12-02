@@ -1,4 +1,5 @@
 ﻿using Homework3.Models;
+using Homework3.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -21,8 +22,9 @@ namespace Homework3
         {
             services.AddMvc();
 
-            string connection = Configuration.GetConnectionString("DefaultConnection");
+            var connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<UniversityContext>(options => options.UseSqlServer(connection));
+            services.AddTransient<IDataManager, DataManager>();
             services.AddMvc();
         }
 

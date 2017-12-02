@@ -1,14 +1,22 @@
-﻿@model IEnumerable<Student>
+﻿@using Homework3.Services
+@model IEnumerable<Student>
 @{
     ViewData["Title"] = "Список студентов";
 }
+
+@inject IDataManager Service
+@{
+    var countStudents = Service.StudentRepository.GetCountStudents();
+}
+
+
 <!DOCTYPE html>
 <html>
 <head>
     <title>Университет</title>
 </head>
 <body>
-<h3>Студенты</h3>
+<h3>Студенты: всего @countStudents</h3>
 <table class="table">
     <tr>
         <th>Имя</th>

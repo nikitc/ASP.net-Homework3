@@ -12541,11 +12541,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Nikita\\Documents\\Visual Studio 2017\\Projects\\Homework3\\Homework3\\Homework3.csproj",
+      "projectUniqueName": "C:\\Users\\Nikita\\source\\repos\\HomeworkASP.NET\\Homework3\\Homework3.csproj",
       "projectName": "Homework3",
-      "projectPath": "C:\\Users\\Nikita\\Documents\\Visual Studio 2017\\Projects\\Homework3\\Homework3\\Homework3.csproj",
+      "projectPath": "C:\\Users\\Nikita\\source\\repos\\HomeworkASP.NET\\Homework3\\Homework3.csproj",
       "packagesPath": "C:\\Users\\Nikita\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Nikita\\Documents\\Visual Studio 2017\\Projects\\Homework3\\Homework3\\obj\\",
+      "outputPath": "C:\\Users\\Nikita\\source\\repos\\HomeworkASP.NET\\Homework3\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -12577,7 +12577,7 @@
         "dependencies": {
           "Microsoft.NETCore.App": {
             "target": "Package",
-            "version": "2.0.0",
+            "version": "2.0",
             "autoReferenced": true
           },
           "Microsoft.AspNetCore.All": {

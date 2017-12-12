@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Homework3.Models;
 using Homework3.Services;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Homework3.Controllers
@@ -9,9 +10,12 @@ namespace Homework3.Controllers
     public class HomeController : Controller
     {
         private readonly IDataManager _dataManager;
-        public HomeController(IDataManager dataManager)
+        private readonly IConfiguration _configuration;
+
+        public HomeController(IDataManager dataManager, IConfiguration configuration)
         {
             _dataManager = dataManager;
+            _configuration = configuration;
         }
 
         [HttpGet]

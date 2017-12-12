@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Homework3.Models
 {
@@ -21,6 +22,11 @@ namespace Homework3.Models
         [MaxLength(20)]
         [Display(Name = "Группа")]
         public string GroupName { get; set; }
+
+        public int? RecordBookId { get; set; }
+
+        [ForeignKey("RecordBookId")]
+        public RecordBook StudentRecordBook { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

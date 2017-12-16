@@ -20,7 +20,9 @@ namespace Homework3
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddOptions();
             services.AddMvc();
+            services.Configure<AuthorInfo>(Configuration);
 
             var connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<UniversityContext>(options => options.UseSqlServer(connection));
@@ -40,7 +42,6 @@ namespace Homework3
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
             app.UseStaticFiles();
 
             app.UseMvc(routes =>

@@ -4,18 +4,19 @@ using Homework3.Models;
 using Homework3.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace Homework3.Controllers
 {
     public class HomeController : Controller
     {
         private readonly IDataManager _dataManager;
-        private readonly IConfiguration _configuration;
+        private AuthorInfo _authorInfo;
 
-        public HomeController(IDataManager dataManager, IConfiguration configuration)
+        public HomeController(IDataManager dataManager, IOptions<AuthorInfo> authorInfo)
         {
             _dataManager = dataManager;
-            _configuration = configuration;
+            _authorInfo = authorInfo.Value;
         }
 
         [HttpGet]
@@ -23,6 +24,7 @@ namespace Homework3.Controllers
         {
             return View(_dataManager.StudentRepository.GetAllStudents().ToList());
         }
+        
 
         [HttpGet]
         public IActionResult EditStudent(int id)
